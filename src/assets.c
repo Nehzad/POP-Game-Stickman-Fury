@@ -9,6 +9,7 @@ void LoadGameAssets(GameAssets *assets)
     assets->playerJump = LoadTexture("resources/Punk_jump.png");
     assets->playerDoubleJump = LoadTexture("resources/Punk_doublejump.png");
     assets->playerPunch = LoadTexture("resources/Punk_attack3.png");
+    /* The punch sheet reads best as a kick pose for this character set. */
     assets->playerKick = LoadTexture("resources/Punk_punch.png");
 
     assets->enemyIdle = LoadTexture("resources/Cyborg_idle.png");
@@ -16,6 +17,7 @@ void LoadGameAssets(GameAssets *assets)
     assets->enemyJump = LoadTexture("resources/Cyborg_jump.png");
     assets->enemyDoubleJump = LoadTexture("resources/Cyborg_doublejump.png");
     assets->enemyPunch = LoadTexture("resources/Cyborg_attack3.png");
+    /* Keep enemy and player animation mapping symmetrical. */
     assets->enemyKick = LoadTexture("resources/Cyborg_punch.png");
 
     assets->bgMusic = LoadMusicStream("resources/bg_music.mp3");

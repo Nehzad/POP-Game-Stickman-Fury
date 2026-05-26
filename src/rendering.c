@@ -94,6 +94,7 @@ void DrawAnimatedFighter(Fighter f,
 
     if (f.facing == -1)
     {
+        /* Negative source width mirrors the sprite without needing duplicate art. */
         src.x += frameWidth;
         src.width = -(float)frameWidth;
     }
@@ -119,6 +120,7 @@ void DrawBackgroundScaled(Texture2D bg)
 {
     float scaleX = (float)SCREEN_WIDTH / (float)bg.width;
     float scaleY = (float)SCREEN_HEIGHT / (float)bg.height;
+    /* Cover the whole virtual screen, cropping only the excess edge area. */
     float scale = (scaleX > scaleY) ? scaleX : scaleY;
 
     float drawW = bg.width * scale;

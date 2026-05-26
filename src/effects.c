@@ -18,6 +18,7 @@ void AddHitEffect(float x, float y, int damage)
     int i;
     int oldest = 0;
 
+    /* Reuse an expired slot, or overwrite the effect that will disappear soonest. */
     for (i = 0; i < MAX_HIT_EFFECTS; i++)
     {
         if (hitEffects[i].timer <= 0)

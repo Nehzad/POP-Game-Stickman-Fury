@@ -11,6 +11,7 @@ Rectangle GetAttackRect(Fighter f)
 {
     Rectangle body = GetBodyRect(f);
 
+    /* Attack boxes are deliberately smaller than sprites so hits feel fair. */
     if (f.attackType == ATTACK_PUNCH)
     {
         float w = 35.0f, h = 18.0f;
@@ -34,6 +35,7 @@ void StartAttack(Fighter *f, AttackType type)
     f->attackType = type;
     f->attackHitApplied = false;
 
+    /* Longer attack duration makes kicks stronger but easier to punish. */
     if (type == ATTACK_PUNCH) f->attackDuration = 16;
     if (type == ATTACK_KICK)  f->attackDuration = 22;
 
@@ -101,6 +103,7 @@ void ResolveHit(Fighter *attacker, Fighter *target)
         Rectangle tr = GetBodyRect(*target);
         AddHitEffect(tr.x + tr.width * 0.5f, tr.y + tr.height * 0.35f, damage);
 
+        /* Each attack can only connect once, even if the hitbox overlaps for many frames. */
         attacker->attackHitApplied = true;
     }
 }

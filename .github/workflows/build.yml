@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  webassembly:
+    name: WebAssembly
+    runs-on: ubuntu-latest
+    container:
+      image: emscripten/emsdk:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify required source files are tracked
+        run: git ls-files --error-unmatch src/rendering.c src/effects.c src/assets.c
+
+      - name: Build raylib for web
+        run: |
+          git clone --depth 1 --branch 5.5 https://github.com/raysan5/raylib.git /tmp/raylib
+          make -C /tmp/raylib/src PLATFORM=PLATFORM_WEB RAYLIB_LIBTYPE=STATIC
+
+      - name: Build game
+        run: |
+          mkdir -p dist
+          emcc \
+            src/main.c \
+            src/game.c \
+            src/fighter.c \
+            src/rendering.c \
+            src/effects.c \
+            src/assets.c \
+            -I src \
+            -I /tmp/raylib/src \
+            -L /tmp/raylib/src \
+            -lraylib \
+            -DPLATFORM_WEB \
+            -s USE_GLFW=3 \
+            -s ASYNCIFY \
+            -s ALLOW_MEMORY_GROWTH=1 \
+            -s FORCE_FILESYSTEM=1 \
+            --preload-file resources \
+            --shell-file shell.html \
+            -o dist/index.html
+          test -f dist/index.html
+          test -f dist/index.js
+          test -f dist/index.wasm
+          test -f dist/index.data
+
+      - name: Upload browser build
+        uses: actions/upload-artifact@v4
+        with:
+          name: stickman-fighter-web
+          path: dist/

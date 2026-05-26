@@ -76,6 +76,7 @@ int main(void)
 
             enemy.velX = 0;
 
+            /* Simple chase AI: stay outside the player's body, then attack once in range. */
             if (enemy.x < player.x - 55)
             {
                 enemy.velX = 2.2f;
@@ -92,6 +93,7 @@ int main(void)
 
             float distance = fabsf(enemy.x - player.x);
 
+            /* Cooldown stops the AI from starting a new attack every frame while overlapping. */
             if (enemy.attackType == ATTACK_NONE && enemyAttackCooldown == 0 && distance < 70.0f)
             {
                 if (GetRandomValue(0, 1) == 0)
@@ -128,6 +130,7 @@ int main(void)
             Rectangle playerBody = GetBodyRect(player);
             Rectangle enemyBody = GetBodyRect(enemy);
 
+            /* Separate bodies after physics so fighters cannot stand inside each other. */
             if (CheckCollisionRecs(playerBody, enemyBody))
             {
                 if (player.x < enemy.x)
@@ -213,6 +216,7 @@ int main(void)
         BeginDrawing();
         ClearBackground(BLACK);
 
+        /* Render to a fixed virtual screen, then letterbox it for any window size. */
         int winW = GetScreenWidth();
         int winH = GetScreenHeight();
         float scaleX = (float)winW / SCREEN_WIDTH;
