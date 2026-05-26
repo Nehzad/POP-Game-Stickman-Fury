@@ -91,11 +91,11 @@ int main(void)
                     enemy.velX = -2.2f;
                     enemy.facing = -1;
                 }
-                else if (enemyOffset < -28.0f)
+                else if (enemyOffset < -12.0f)
                 {
                     enemy.facing = 1;
                 }
-                else if (enemyOffset > 28.0f)
+                else if (enemyOffset > 12.0f)
                 {
                     enemy.facing = -1;
                 }
@@ -205,8 +205,7 @@ int main(void)
                             assets.playerDoubleJump,
                             assets.playerPunch,
                             assets.playerKick,
-                            frameCounter,
-                            false);
+                            frameCounter);
 
         DrawAnimatedFighter(enemy,
                             assets.enemyIdle,
@@ -215,8 +214,7 @@ int main(void)
                             assets.enemyDoubleJump,
                             assets.enemyPunch,
                             assets.enemyKick,
-                            frameCounter,
-                            true);
+                            frameCounter);
 
         DrawHitEffects();
 

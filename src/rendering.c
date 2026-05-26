@@ -59,8 +59,7 @@ void DrawAnimatedFighter(Fighter f,
                          Texture2D doubleJumpTex,
                          Texture2D punchTex,
                          Texture2D kickTex,
-                         int frameCounter,
-                         bool stabilizeFrameAnchor)
+                         int frameCounter)
 {
     AnimationType anim = GetAnimationType(f);
     Texture2D tex = idleTex;
@@ -97,28 +96,6 @@ void DrawAnimatedFighter(Fighter f,
         }
     }
 
-    float frameAnchorX = frameWidth / 2.0f;
-
-    if (stabilizeFrameAnchor)
-    {
-        static const float idleAnchors[] = {12.0f, 12.0f, 11.5f, 11.5f};
-        static const float runAnchors[] = {14.5f, 13.0f, 15.5f, 15.5f, 14.0f, 15.0f};
-        static const float jumpAnchors[] = {15.5f, 15.5f, 15.5f, 15.5f};
-        static const float doubleJumpAnchors[] = {14.5f, 16.0f, 14.5f, 15.5f, 15.5f, 14.0f};
-        static const float punchAnchors[] = {12.0f, 11.5f, 10.5f, 16.0f, 21.5f, 21.5f, 21.0f, 20.5f};
-        static const float kickAnchors[] = {12.0f, 12.0f, 12.0f, 13.0f, 18.0f, 14.0f};
-
-        switch (anim)
-        {
-            case ANIM_IDLE: frameAnchorX = idleAnchors[currentFrame]; break;
-            case ANIM_RUN: frameAnchorX = runAnchors[currentFrame]; break;
-            case ANIM_JUMP: frameAnchorX = jumpAnchors[currentFrame]; break;
-            case ANIM_DOUBLE_JUMP: frameAnchorX = doubleJumpAnchors[currentFrame]; break;
-            case ANIM_PUNCH: frameAnchorX = punchAnchors[currentFrame]; break;
-            case ANIM_KICK: frameAnchorX = kickAnchors[currentFrame]; break;
-        }
-    }
-
     Rectangle src = {
         (float)(currentFrame * frameWidth),
         0.0f,
@@ -142,13 +119,8 @@ void DrawAnimatedFighter(Fighter f,
         frameHeight * scale
     };
 
-    if (f.facing == -1)
-    {
-        frameAnchorX = frameWidth - frameAnchorX;
-    }
-
     Vector2 origin = {
-        frameAnchorX * scale,
+        (frameWidth * scale) / 2.0f,
         frameHeight * scale
     };
 
