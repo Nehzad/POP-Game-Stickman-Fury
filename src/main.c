@@ -185,16 +185,18 @@ int main(void)
         DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Fade(BLACK, 0.14f));
         DrawGroundAndShadows(player, enemy);
 
-        DrawRectangle(0, 0, SCREEN_WIDTH, 95, Fade(BLACK, 0.45f));
-        DrawText("STICKMAN'S FURY", 350, 20, 30, RAYWHITE);
+        DrawRectangle(0, 0, SCREEN_WIDTH, 160, Fade(BLACK, 0.45f));
+
+        const char *gameTitle = "STICKMAN'S FURY";
+        DrawText(gameTitle, (SCREEN_WIDTH - MeasureText(gameTitle, 30)) / 2, 20, 30, RAYWHITE);
         DrawText("A/D move | W or SPACE jump/double jump | J punch | K kick | R restart | F11 fullscreen",
                  120, 60, 20, LIGHTGRAY);
 
-        DrawHealthBar(60, 100, 300, 24, player.health, RED);
-        DrawText("RED PLAYER", 60, 75, 20, RED);
+        DrawText("RED PLAYER", 60, 105, 20, RED);
+        DrawHealthBar(60, 130, 300, 24, player.health, RED);
 
-        DrawHealthBar(640, 100, 300, 24, enemy.health, GREEN);
-        DrawText("GREEN PLAYER", 640, 75, 20, GREEN);
+        DrawText("GREEN PLAYER", 640, 105, 20, GREEN);
+        DrawHealthBar(640, 130, 300, 24, enemy.health, GREEN);
 
         DrawAnimatedFighter(player,
                             assets.playerIdle,
