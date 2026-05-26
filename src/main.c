@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Stickman Fighter - Red vs White");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Stickman's Fury");
     InitAudioDevice();
     SetWindowState(FLAG_WINDOW_RESIZABLE);
     SetTargetFPS(60);
@@ -76,16 +76,29 @@ int main(void)
 
             enemy.velX = 0;
 
-            /* Simple chase AI: stay outside the player's body, then attack once in range. */
-            if (enemy.x < player.x - 55)
+            float enemyOffset = enemy.x - player.x;
+
+            /* Simple chase AI with a dead zone so the enemy does not jitter in place. */
+            if (enemy.attackType == ATTACK_NONE)
             {
-                enemy.velX = 2.2f;
-                enemy.facing = 1;
-            }
-            else if (enemy.x > player.x + 55)
-            {
-                enemy.velX = -2.2f;
-                enemy.facing = -1;
+                if (enemyOffset < -72.0f)
+                {
+                    enemy.velX = 2.2f;
+                    enemy.facing = 1;
+                }
+                else if (enemyOffset > 72.0f)
+                {
+                    enemy.velX = -2.2f;
+                    enemy.facing = -1;
+                }
+                else if (enemyOffset < -12.0f)
+                {
+                    enemy.facing = 1;
+                }
+                else if (enemyOffset > 12.0f)
+                {
+                    enemy.facing = -1;
+                }
             }
 
             if (enemyAttackCooldown > 0)
@@ -107,7 +120,7 @@ int main(void)
                     PlaySound(assets.kickSound);
                 }
 
-                enemyAttackCooldown = 35;
+                enemyAttackCooldown = 60;
             }
 
             UpdateAttack(&player);
@@ -148,12 +161,12 @@ int main(void)
             if (player.health <= 0)
             {
                 gameOver = true;
-                TextCopy(winnerText, "WHITE STICKMAN WINS!");
+                TextCopy(winnerText, "GREEN PLAYER WINS!");
             }
             else if (enemy.health <= 0)
             {
                 gameOver = true;
-                TextCopy(winnerText, "RED STICKMAN WINS!");
+                TextCopy(winnerText, "RED PLAYER WINS!");
             }
         }
         else
@@ -173,15 +186,15 @@ int main(void)
         DrawGroundAndShadows(player, enemy);
 
         DrawRectangle(0, 0, SCREEN_WIDTH, 95, Fade(BLACK, 0.45f));
-        DrawText("STICKMAN FIGHTER", 360, 20, 30, RAYWHITE);
+        DrawText("STICKMAN'S FURY", 350, 20, 30, RAYWHITE);
         DrawText("A/D move | W or SPACE jump/double jump | J punch | K kick | R restart | F11 fullscreen",
                  120, 60, 20, LIGHTGRAY);
 
         DrawHealthBar(60, 100, 300, 24, player.health, RED);
-        DrawText("RED", 60, 75, 20, RED);
+        DrawText("RED PLAYER", 60, 75, 20, RED);
 
-        DrawHealthBar(640, 100, 300, 24, enemy.health, WHITE);
-        DrawText("WHITE", 640, 75, 20, WHITE);
+        DrawHealthBar(640, 100, 300, 24, enemy.health, GREEN);
+        DrawText("GREEN PLAYER", 640, 75, 20, GREEN);
 
         DrawAnimatedFighter(player,
                             assets.playerIdle,

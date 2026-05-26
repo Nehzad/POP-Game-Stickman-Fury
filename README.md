@@ -1,10 +1,10 @@
-# Stickman Fighter
+# Stickman's Fury
 
-A browser-playable Raylib/WebAssembly fighting game where a red stickman battles a white AI opponent. Move, double jump, punch, and kick your way through a one-on-one arena fight with animated sprites, health bars, hit effects, sound effects, background music, and restart/fullscreen controls.
+A browser-playable Raylib/WebAssembly fighting game where Red Player battles Green Player. Move, double jump, punch, and kick your way through a one-on-one arena fight with animated sprites, health bars, hit effects, sound effects, background music, and restart/fullscreen controls.
 
 ## Gameplay
 
-You play as the red fighter against a white AI-controlled opponent. Both fighters have 100 health. Punches are faster and safer, while kicks do more damage and knockback but leave you committed for longer.
+You play as Red Player against Green Player, an AI-controlled opponent. Both fighters have 100 health. Punches are faster and safer, while kicks do more damage and knockback but leave you committed for longer.
 
 ## Controls
 

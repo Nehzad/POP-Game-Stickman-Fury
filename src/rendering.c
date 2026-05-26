@@ -81,9 +81,20 @@ void DrawAnimatedFighter(Fighter f,
     }
 
     int frameCount = GetFrameCount(anim);
-    int currentFrame = (frameCounter / 8) % frameCount;
+    int currentFrame = (frameCounter / 10) % frameCount;
     int frameWidth = tex.width / frameCount;
     int frameHeight = tex.height;
+
+    if (f.attackType != ATTACK_NONE && f.attackDuration > 0)
+    {
+        /* Attacks use their own timer so AI attacks always start on the first frame. */
+        int elapsed = f.attackDuration - f.attackTimer;
+        currentFrame = (elapsed * frameCount) / f.attackDuration;
+        if (currentFrame >= frameCount)
+        {
+            currentFrame = frameCount - 1;
+        }
+    }
 
     Rectangle src = {
         (float)(currentFrame * frameWidth),
