@@ -13,7 +13,8 @@ void DrawAnimatedFighter(Fighter f,
                          Texture2D doubleJumpTex,
                          Texture2D punchTex,
                          Texture2D kickTex,
-                         int frameCounter);
+                         int frameCounter,
+                         bool stabilizeFrameAnchor);
 void DrawBackgroundScaled(Texture2D bg);
 void DrawGroundAndShadows(Fighter player, Fighter enemy);
 
