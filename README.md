@@ -1,50 +1,44 @@
-# POP Raylib starter
+# Stickman Fighter
 
-Simple starter application for POP C assignment.
+A browser-playable Raylib/WebAssembly fighting game where a red stickman battles a white AI opponent. Move, double jump, punch, and kick your way through a one-on-one arena fight with animated sprites, health bars, hit effects, sound effects, background music, and restart/fullscreen controls.
 
-Please see materials on Blackboard for more details.
+## Controls
 
-# Building
+- `A` / `D`: Move
+- `W` or `Space`: Jump / double jump
+- `J`: Punch
+- `K`: Kick
+- `R`: Restart after a match
+- `F11`: Toggle fullscreen
 
-To build run the command:
+## Building
+
+Build the WASM version with:
 
 ```bash
 /opt/pop/bin/build-wasm.sh src/main.c
 ```
 
-This will generate a directory *out* with the WASM and index.html files for the 
-Raylib program.
+This generates the `out` directory with the browser build.
 
-# Running
+## Running
 
-The very first time you run a POP WASM application you must run the command:
+Allocate a POP port once:
 
 ```bash
 /opt/pop/bin/allocate_port.sh
 ```
 
-You might need to start a new terminal instance for the update to take effect.
-To check that everything is fine run the command:
-
-```bash
-echo $MY_PORT
-```
-
-This should output a 5 digit number.
-
-
-To run the Raylib program in *out* simply run the command:
+Then run the WASM server:
 
 ```bash
 /opt/pop/bin/run-wasm.sh
 ```
 
-This will run a web server that serves the *out* on the port you allocated above. This is forwarded from the 
-remote server to your local machine, which means you can simply open the corresponding web page within a browser 
-on your local machine using the address:
+Open the forwarded local address in your browser:
 
 ```bash
 localhost:XXXXX
 ```
 
-where *XXXXX* is the port number you allocated above.
+Replace `XXXXX` with the allocated port number.
