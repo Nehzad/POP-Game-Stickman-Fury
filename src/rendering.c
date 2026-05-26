@@ -99,11 +99,11 @@ void DrawAnimatedFighter(Fighter f,
         src.width = -(float)frameWidth;
     }
 
-    float scale = 3.2f;
+    float scale = 3.0f;
 
     Rectangle dst = {
-        f.x,
-        f.y + 2.0f,
+        roundf(f.x),
+        roundf(f.y + 2.0f),
         frameWidth * scale,
         frameHeight * scale
     };
@@ -140,27 +140,16 @@ void DrawBackgroundScaled(Texture2D bg)
 
 void DrawGroundAndShadows(Fighter player, Fighter enemy)
 {
-    DrawEllipse((int)player.x, (int)(GROUND_Y + 4), 28, 8, Fade(BLACK, 0.35f));
-    DrawEllipse((int)enemy.x, (int)(GROUND_Y + 4), 28, 8, Fade(BLACK, 0.35f));
+    DrawEllipse((int)roundf(player.x), (int)(GROUND_Y + 4), 28, 8, Fade(BLACK, 0.35f));
+    DrawEllipse((int)roundf(enemy.x), (int)(GROUND_Y + 4), 28, 8, Fade(BLACK, 0.35f));
 
-    DrawRectangle(0, (int)GROUND_Y + 8, SCREEN_WIDTH, 92, (Color){34, 28, 22, 230});
-    DrawRectangle(0, (int)GROUND_Y + 8, SCREEN_WIDTH, 14, (Color){68, 90, 42, 255});
-    DrawRectangle(0, (int)GROUND_Y + 22, SCREEN_WIDTH, 10, (Color){90, 70, 45, 255});
-    DrawRectangle(0, (int)GROUND_Y + 32, SCREEN_WIDTH, 68, (Color){52, 40, 30, 255});
-
-    DrawLineEx((Vector2){0, GROUND_Y + 8}, (Vector2){SCREEN_WIDTH, GROUND_Y + 8}, 3.0f, (Color){110, 140, 90, 255});
-    DrawLineEx((Vector2){0, GROUND_Y + 20}, (Vector2){SCREEN_WIDTH, GROUND_Y + 20}, 2.0f, Fade(BLACK, 0.25f));
+    DrawRectangle(0, (int)GROUND_Y + 7, SCREEN_WIDTH, 2, Fade(BLACK, 0.30f));
+    DrawLineEx((Vector2){0, GROUND_Y + 8}, (Vector2){SCREEN_WIDTH, GROUND_Y + 8}, 2.0f, (Color){85, 125, 70, 180});
 
     for (int i = 0; i < SCREEN_WIDTH; i += 18)
     {
-        int grassH = 4 + (i % 3);
-        DrawLine(i, (int)GROUND_Y + 8, i + 2, (int)GROUND_Y + 8 - grassH, (Color){80, 120, 55, 255});
-        DrawLine(i + 5, (int)GROUND_Y + 8, i + 6, (int)GROUND_Y + 8 - (grassH + 2), (Color){95, 135, 65, 255});
-    }
-
-    for (int i = 10; i < SCREEN_WIDTH; i += 40)
-    {
-        DrawCircle(i, (int)GROUND_Y + 44 + (i % 9), 2, Fade(BLACK, 0.18f));
-        DrawCircle(i + 12, (int)GROUND_Y + 64 + (i % 7), 2, Fade(BLACK, 0.16f));
+        int grassH = 3 + (i % 3);
+        DrawLine(i, (int)GROUND_Y + 8, i + 2, (int)GROUND_Y + 8 - grassH, (Color){80, 120, 55, 210});
+        DrawLine(i + 5, (int)GROUND_Y + 8, i + 6, (int)GROUND_Y + 8 - (grassH + 1), (Color){95, 135, 65, 210});
     }
 }

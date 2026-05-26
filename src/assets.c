@@ -1,5 +1,13 @@
 #include "assets.h"
 
+static void SetPixelArtFilter(Texture2D texture)
+{
+    if (texture.id != 0)
+    {
+        SetTextureFilter(texture, TEXTURE_FILTER_POINT);
+    }
+}
+
 void LoadGameAssets(GameAssets *assets)
 {
     assets->background = LoadTexture("resources/Background.png");
@@ -23,6 +31,20 @@ void LoadGameAssets(GameAssets *assets)
     assets->bgMusic = LoadMusicStream("resources/bg_music.mp3");
     assets->punchSound = LoadSound("resources/punch.wav");
     assets->kickSound = LoadSound("resources/kick.wav");
+
+    SetPixelArtFilter(assets->background);
+    SetPixelArtFilter(assets->playerIdle);
+    SetPixelArtFilter(assets->playerRun);
+    SetPixelArtFilter(assets->playerJump);
+    SetPixelArtFilter(assets->playerDoubleJump);
+    SetPixelArtFilter(assets->playerPunch);
+    SetPixelArtFilter(assets->playerKick);
+    SetPixelArtFilter(assets->enemyIdle);
+    SetPixelArtFilter(assets->enemyRun);
+    SetPixelArtFilter(assets->enemyJump);
+    SetPixelArtFilter(assets->enemyDoubleJump);
+    SetPixelArtFilter(assets->enemyPunch);
+    SetPixelArtFilter(assets->enemyKick);
 
     SetMusicVolume(assets->bgMusic, 0.35f);
     SetSoundVolume(assets->punchSound, 0.85f);
