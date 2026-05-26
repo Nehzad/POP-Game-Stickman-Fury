@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Trust checked-out workspace
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Verify required source files are tracked
         run: git ls-files --error-unmatch src/rendering.c src/effects.c src/assets.c
 
